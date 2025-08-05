@@ -9,3 +9,7 @@ __pycache__/
 .venv
 venv/
 env/
+
+# Cache
+cache.webp
+cache.txt
