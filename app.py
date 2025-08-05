@@ -54,9 +54,11 @@ def play(actions):
         
         # 2. 如果缓存有效，直接返回缓存文件
         if cached_actions == actions and os.path.exists(CACHE_FILE):
+            print(f"Cache hit for actions: '{actions}'")
             return send_file(CACHE_FILE, mimetype='image/webp')
 
         # --- 如果缓存无效，则重新生成 ---
+        print(f"Cache miss for actions: '{actions}'. Generating new image.")
         # 1. 创建一个新的游戏实例
         current_game = Game()
 
