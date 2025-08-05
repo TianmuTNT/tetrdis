@@ -1,4 +1,4 @@
-from flask import Flask, Response, send_file, make_response
+from flask import Flask, Response, send_file, make_response, request, abort
 from game import Game
 from renderer import render_game
 from io import BytesIO
@@ -30,6 +30,12 @@ def play(actions):
     核心游戏路由。
     根据URL中的actions字符串生成游戏状态并渲染为WEBP图像。
     """
+    # 校验 User-Agent，只允许 Discord 机器人访问
+    user_agent = request.headers.get('User-Agent')
+    expected_user_agent = "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+    if user_agent != expected_user_agent:
+        abort(403) # Forbidden
+
     # 1. 创建一个新的游戏实例
     current_game = Game()
 
